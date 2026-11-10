@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#151b31" />
+    <meta name="description" content="探索宋志杰的品牌视觉、游戏 KV、美术指导与 H5 互动作品。" />
+    <link rel="icon" href="data:," />
+    <title>Songzhijie Space · 作品集</title>
+    <link rel="preload" as="image" href="/assets/optimized/flight-open-ring.webp" fetchpriority="high" />
+    <!-- Critical first-paint UI: it must not wait for the application bundle. -->
+    <style id="boot-critical">
+      body[data-boot]:not([data-boot="ready"]) { margin:0;overflow:hidden;background:#f8f5ee; }
+      body[data-boot]:not([data-boot="ready"]) #app,
+      body[data-boot]:not([data-boot="ready"]) .outer-starfield { visibility:hidden!important;pointer-events:none; }
+      #boot-screen { position:fixed;inset:0;z-index:2147483647;display:grid;place-items:center;background:#f8f5ee;color:#514d59; }
+      #boot-screen[hidden],#boot-error[hidden] { display:none!important; }
+      .boot-content { display:flex;flex-direction:column;align-items:center;gap:26px;width:min(380px,calc(100% - 48px)); }
+      .boot-dog { display:block;width:100%;height:auto;aspect-ratio:2172 / 724;object-fit:contain;image-rendering:pixelated;animation:boot-flight 1.1s steps(4,end) infinite; }
+      .boot-track { width:72%;height:14px;box-sizing:border-box;padding:2px;border:2px solid #625b6d;background:#ece7df;box-shadow:2px 2px 0 #d0c5ce; }
+      .boot-fill { display:block;width:0;height:100%;background:#9a85ad;transition:width 140ms linear; }
+      #boot-screen[data-complete] .boot-fill { transition:none; }
+      #boot-error { margin:0;font:13px/1.8 sans-serif;text-align:center; }
+      #boot-error button { margin-left:8px;padding:5px 10px;border:1px solid #625b6d;background:#fffdf7;color:#514d59;cursor:pointer; }
+      #boot-error button:focus-visible { outline:2px dashed #7a6289;outline-offset:4px; }
+      @keyframes boot-flight { 0%,100%{transform:translate(0,0);}50%{transform:translate(4px,-4px);} }
+      @media(prefers-reduced-motion:reduce) { .boot-dog { animation:none; }.boot-fill { transition:none; } }
+      body[data-motion="off"] .boot-dog { animation:none; }
+    </style>
+    <script>
+      // Keep retry available even if the application module cannot be downloaded.
+      window.addEventListener('error', function (event) {
+        if (event.target !== window && !(event.target instanceof HTMLScriptElement)) return;
+        function showBootError() {
+          if (document.body && document.body.dataset.boot === 'ready') return;
+          var error = document.getElementById('boot-error');
+          if (!error) { document.addEventListener('DOMContentLoaded', showBootError, { once: true }); return; }
+          document.body.dataset.boot = 'error';
+          document.getElementById('boot-screen').setAttribute('aria-busy', 'false');
+          error.hidden = false;
+        }
+        showBootError();
+      }, true);
+    </script>
+  </head>
+  <body class="solar-mode handheld-mode" data-boot="loading">
+    <div id="boot-screen" role="status" aria-label="正在加载作品宇宙" aria-busy="true">
+      <div class="boot-content">
+        <img class="boot-dog" src="/assets/optimized/flight-open-ring.webp" width="2172" height="724" fetchpriority="high" alt="宇航狗喷着彩虹尾焰飞行" />
+        <p class="boot-greeting">SONGZHIJIE SPACE<br><span>正在为你点亮六个作品世界…</span></p>
+        <div id="boot-progress" class="boot-track" role="progressbar" aria-label="必要资源加载进度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i class="boot-fill"></i></div>
+        <p id="boot-error" hidden><span>加载未完成，请重试。</span><button type="button" onclick="location.reload()">重新加载</button></p>
+        <noscript>请启用 JavaScript 后重新打开网站。</noscript>
+      </div>
+    </div>
+    <div id="app" inert aria-hidden="true">
+      <header class="site-header">
+        <a class="wordmark" href="./" aria-label="Songzhijie Space 首页"><span class="brand-star" aria-hidden="true">✦</span><span class="brand-copy">Songzhijie Space<span class="edition">SIX WORLDS / 006</span></span></a>
+        <nav id="experience-dock" class="header-tags" aria-label="作品集快捷导航"></nav>
+      </header>
+      <section class="home-introduction" aria-label="个人介绍">
+        <p class="home-eyebrow">宋志杰 / 品牌内容创意 · 游戏视觉设计</p><h1>Songzhijie Space</h1>
+        <p>六个作品世界，等你来探索。</p><small>点星球打开作品 · 项目内上下阅读 · 左右切换项目</small><button type="button" id="home-tour-replay">查看操作引导 ↗</button>
+      </section>
+      <main class="universe-shell" aria-label="像素宇宙作品集">
+        <section class="retro-console handheld-console" aria-label="白色复古宇宙掌机">
+        <div class="monitor-housing handheld-housing">
+          <svg class="handheld-art" viewBox="0 0 1320 776" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+            <svg x="0" y="0" width="175" height="776" viewBox="40 144 198 776" preserveAspectRatio="none" overflow="hidden">
+              <image href="/assets/optimized/handheld-shell-user.webp" width="1448" height="1086" /><rect x="78" y="258" width="126" height="66" fill="#828282"/>
+            </svg>
+            <svg x="173" y="0" width="974" height="776" viewBox="238 144 972 776" preserveAspectRatio="none" overflow="hidden">
+              <image href="/assets/optimized/handheld-shell-user.webp" width="1448" height="1086" />
+              <svg x="626" y="852" width="198" height="32" viewBox="826 852 198 32" overflow="hidden"><image href="/assets/optimized/handheld-shell-user.webp" width="1448" height="1086" /></svg>
+            </svg>
+            <svg x="1145" y="0" width="175" height="776" viewBox="1210 144 198 776" preserveAspectRatio="none" overflow="hidden">
+              <image href="/assets/optimized/handheld-shell-user.webp" width="1448" height="1086" />
+            </svg>
+          </svg>
+          <svg class="handheld-art handheld-art-mobile" viewBox="0 0 1076 776" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+            <svg x="0" y="0" width="53" height="776" viewBox="40 144 198 776" preserveAspectRatio="none" overflow="hidden"><image href="/assets/optimized/handheld-shell-user.webp" width="1448" height="1086" /><rect x="78" y="258" width="126" height="66" fill="#828282"/></svg>
+            <svg x="51" y="0" width="974" height="776" viewBox="238 144 972 776" preserveAspectRatio="none" overflow="hidden"><image href="/assets/optimized/handheld-shell-user.webp" width="1448" height="1086" /><svg x="626" y="852" width="198" height="32" viewBox="826 852 198 32" overflow="hidden"><image href="/assets/optimized/handheld-shell-user.webp" width="1448" height="1086" /></svg></svg>
+            <svg x="1023" y="0" width="53" height="776" viewBox="1210 144 198 776" preserveAspectRatio="none" overflow="hidden"><image href="/assets/optimized/handheld-shell-user.webp" width="1448" height="1086" /></svg>
+          </svg>
+          <div class="handheld-screen">
+        <div class="scene-frame" id="scene-frame">
+          <div id="game" tabindex="0" role="region" aria-label="点空白星空驾驶小狗，点星球停靠，拖动环绕，双指或滚轮缩放；也支持 WASD 和方向键"></div>
+          <div class="dog-home-visual" aria-hidden="true"><img class="dog-cabin" src="/assets/optimized/dog-cabin-v2-user.webp" alt="" width="1280" height="1280" /><img class="home-dog" src="/assets/optimized/sleep-open-ring.webp" alt="色环带缺口、趴在窝里睡觉的宇航狗" width="1448" height="1086" /><span class="home-caption">宋志杰 · 关于我 ↗</span></div>
+          <button type="button" class="dog-home" aria-label="点击小狗查看宋志杰的个人介绍"></button>
+          <div id="planet-controls" role="group" aria-label="画面中的作品星球"></div>
+          <div class="solar-intro" aria-hidden="true"><small>SIX WORLDS. MANY STORIES.</small><p>靠近星球，打开作品档案。</p></div>
+          <p class="solar-camera-hint" aria-hidden="true">TAP TO FLY · DRAG TO ORBIT</p>
+          <p id="loading" class="loading" role="status">正在打开宇宙…</p>
+        </div>
+          </div>
+          <div class="monitor-chin handheld-bottom">
+            <div class="camera-toolbar" aria-label="镜头与公转控制">
+              <button type="button" id="zoom-in" aria-label="放大镜头">＋</button>
+              <button type="button" id="zoom-out" aria-label="缩小镜头">−</button>
+              <button type="button" id="reset-view" aria-label="返回星系总览">↺</button>
+              <button type="button" id="dog-home-button" aria-label="让小狗回窝休息">⌂</button>
+              <button type="button" id="pause-orbits" aria-label="暂停公转" aria-pressed="false">Ⅱ</button>
+            </div>
+          </div>
+        </div>
+        <nav id="planet-nav" class="planet-nav" aria-label="六颗作品星球导航"></nav>
+        </section>
+      </main>
+      <footer class="site-footer">
+        <p class="controls-hint"><span class="desktop-controls"><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> / 方向键飞行 · 点空白处前往 · 拖动环绕</span><span class="touch-controls">点空白处飞行 · 点星球探索 · 拖动环绕</span></p>
+        <p id="flight-status" role="status" aria-live="polite">小狗在窝里休息 · 点星球叫它出发</p>
+      </footer>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

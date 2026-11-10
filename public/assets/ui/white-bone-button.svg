@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 48" shape-rendering="crispEdges">
+  <defs>
+    <path id="bone" d="M26 10H54C57 0 66-1 73 3C81 7 82 17 74 24C82 30 81 41 73 45C65 49 56 45 54 38H26C23 48 14 49 7 45C-1 41-2 30 6 24C-2 18-1 7 7 3C15-1 24 0 26 10Z"/>
+    <linearGradient id="plastic" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset=".73" stop-color="#ffffff"/>
+      <stop offset=".73" stop-color="#dedce2"/>
+      <stop offset="1" stop-color="#c5c1ce"/>
+    </linearGradient>
+  </defs>
+  <use href="#bone" fill="#888190"/>
+  <use href="#bone" transform="translate(2 1) scale(.95 .92)" fill="url(#plastic)"/>
+  <path fill="#ffffff" d="M27 11H53V13H27ZM10 4H18V6H10ZM62 4H69V6H62Z"/>
+</svg>

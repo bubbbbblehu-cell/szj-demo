@@ -1,0 +1,102 @@
+/* Quiet paper-and-ink CV window; scoped to About so artwork layouts stay intact. */
+.cv-dialog {
+ --cv-paper:#f8f4eb;--cv-ink:#514e58;--cv-muted:#79727c;--cv-accent:#a1776c;
+ width:min(860px,calc(100% - 48px));height:560px;max-height:calc(100dvh - 64px);
+ padding:28px 32px 22px;border:4px solid var(--cv-ink);background:var(--cv-paper);color:var(--cv-ink);
+ box-shadow:6px 6px 0 #282438,inset 0 0 0 2px #fffdf8;overflow:visible;color-scheme:light;
+}
+.cv-dialog[open] {display:flex;flex-direction:column;gap:20px;}
+.cv-dialog::backdrop {background:#17152b9c;backdrop-filter:none;}
+.cv-header {display:flex;align-items:center;gap:16px;flex-shrink:0;}
+.cv-mark {display:grid;grid-template:8px 8px/8px 8px;gap:4px;align-self:flex-start;margin-top:5px;}
+.cv-mark i {background:var(--cv-ink);}.cv-mark i:first-child {background:var(--cv-accent);}
+.cv-eyebrow {font:10px/1.5 'Fusion Pixel',monospace;letter-spacing:2px;color:var(--cv-muted);}
+.cv-dialog h2 {font:30px/1.4 'Fusion Pixel',monospace;margin:4px 0 0;color:var(--cv-ink);}
+.cv-header>div {flex:1;}
+.cv-dialog button {font-family:'Fusion Pixel',monospace;border-radius:0;cursor:pointer;}
+.cv-close {width:40px;height:40px;padding:0;border:3px solid var(--cv-ink);background:var(--cv-paper);color:var(--cv-ink);font-size:26px;line-height:1;box-shadow:2px 2px 0 #c5bdba;align-self:flex-start;}
+.cv-chapters {display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;border-bottom:2px solid #d5ccc5;flex-shrink:0;}
+.cv-chapters button {position:relative;padding:10px 4px 12px;min-height:40px;border:0;background:transparent;color:var(--cv-muted);font-size:14px;}
+.cv-chapters button[aria-pressed=true] {color:var(--cv-ink);background:#ede5da;}
+.cv-chapters button[aria-pressed=true]::after {content:'';position:absolute;left:0;right:0;height:3px;bottom:-2px;background:var(--cv-accent);}
+.cv-reading-area {flex:1;min-height:0;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#aaa0a2 transparent;background:#eee7dd;padding:22px 24px;}
+.cv-page {min-height:100%;outline:none;}
+.cv-dialog p,.cv-dialog li,.cv-dialog dd {font:15px/1.8 'Fusion Pixel',monospace;color:var(--cv-ink);overflow-wrap:anywhere;}
+.cv-dialog p {margin:0;}
+.cv-section-label {font:11px/1.5 'Fusion Pixel',monospace;letter-spacing:1.4px;color:var(--cv-accent);}
+.cv-dialog h3 {font:26px/1.4 'Fusion Pixel',monospace;margin:8px 0;color:var(--cv-ink);}
+.cv-personal {display:grid;grid-template-columns:1.05fr 1fr;gap:32px;}
+.cv-personal h3>span {display:block;font-size:11px;line-height:1.8;letter-spacing:1.6px;color:var(--cv-muted);margin-top:4px;}
+.cv-dialog .cv-position {font-size:13px;}
+.cv-dialog .cv-years {display:flex;align-items:center;gap:10px;margin:12px 0;}
+.cv-years strong {font:40px/1 'Fusion Pixel',monospace;color:var(--cv-accent);font-weight:400;}
+.cv-years span {font-size:13px;}
+.cv-dialog .cv-summary {font-size:13px;line-height:1.9;}
+.cv-details {border-left:2px solid #d7cdc3;padding-left:28px;}
+.cv-dialog h4 {font:14px/1.6 'Fusion Pixel',monospace;font-weight:400;margin:0 0 8px;color:var(--cv-accent);}
+.cv-details h4:not(:first-child) {margin-top:22px;}
+.cv-details dl {margin:0;}.cv-details dl>div+div {margin-top:10px;}
+.cv-details dt {font:11px/1.6 'Fusion Pixel',monospace;color:var(--cv-muted);margin-bottom:3px;}
+.cv-details dd {margin:0;}.cv-details a {color:var(--cv-ink);text-decoration-thickness:1px;text-underline-offset:4px;}
+.cv-page:not(.cv-personal) {display:grid;grid-template-columns:190px minmax(0,1fr);gap:28px;}
+.cv-job-heading {border-right:2px solid #d7cdc3;padding-right:22px;}
+.cv-job-heading>p {font-size:13px;}
+.cv-job-copy h4:not(:first-child) {margin-top:18px;}
+.cv-job-copy p+p {margin-top:10px;}
+.cv-job-copy ul {list-style:none;padding:0;margin:0;}
+.cv-job-copy li+li {margin-top:12px;}.cv-job-copy li strong {font-weight:400;}.cv-job-copy li span {display:block;font-size:13px;color:#6d6570;margin-top:3px;}
+.cv-footer {display:flex;align-items:center;gap:16px;flex-shrink:0;}
+.cv-page-count {color:var(--cv-muted);font-size:12px;font-variant-numeric:tabular-nums;}
+.cv-pagination {display:flex;gap:8px;}
+.cv-footer button {min-height:36px;padding:6px 12px;border:2px solid var(--cv-ink);background:var(--cv-paper);color:var(--cv-ink);font-size:14px;box-shadow:2px 2px 0 #c5bdba;}
+.cv-pagination button {min-width:42px;}.cv-return {margin-left:auto;}
+.cv-dialog button:hover:not(:disabled) {background:#e6dcd3;}
+.cv-dialog button:active:not(:disabled) {transform:translateY(2px);box-shadow:none;}
+.cv-dialog button:disabled {opacity:.35;cursor:default;}
+.cv-dialog :is(button,a):focus-visible {outline:2px dashed #7b5c89;outline-offset:3px;}
+.cv-dialog .cv-page:focus-visible {outline:2px dashed #a99baf;outline-offset:7px;}
+@media(max-width:1100px) {
+ .cv-dialog {top:16px;bottom:auto;margin:0 auto;height:560px;max-height:calc(100dvh - 160px);}
+}
+@media(max-width:640px) {
+ .cv-dialog {width:calc(100% - 24px);height:600px;padding:18px 16px 14px;border-width:3px;}
+ .cv-dialog[open] {gap:14px;}.cv-header {gap:10px;}.cv-mark {grid-template:6px 6px/6px 6px;gap:3px;}
+ .cv-eyebrow {font-size:9px;letter-spacing:1px;}.cv-dialog h2 {font-size:24px;margin-top:4px;}.cv-close {width:34px;height:34px;}
+ .cv-chapters {gap:2px;}.cv-chapters button {font-size:12px;padding:8px 2px 10px;}
+ .cv-reading-area {padding:16px;}.cv-personal {grid-template-columns:1fr;gap:14px;}
+ .cv-introduction {display:grid;grid-template-columns:1fr auto;column-gap:12px;}
+ .cv-introduction>.cv-section-label {grid-column:1 / -1;}.cv-personal h3 {font-size:23px;margin:4px 0;}
+ .cv-personal h3>span {font-size:9px;}.cv-dialog .cv-position {font-size:12px;grid-column:1 / -1;}
+ .cv-dialog .cv-years {grid-column:2;grid-row:2;margin:0;gap:6px;flex-direction:column;justify-content:center;}
+ .cv-years strong {font-size:32px;}.cv-years span {font-size:10px;}.cv-dialog .cv-summary {grid-column:1 / -1;font-size:12px;line-height:1.7;margin-top:8px;}
+ .cv-details {padding:12px 0 0;border-left:0;border-top:2px solid #d7cdc3;}
+ .cv-dialog h4 {font-size:13px;margin-bottom:4px;}.cv-details h4:not(:first-child) {margin-top:12px;}
+ .cv-dialog p,.cv-dialog li,.cv-dialog dd {font-size:13px;line-height:1.75;}
+ .cv-details dl {display:flex;flex-wrap:wrap;gap:8px 20px;}.cv-details dl>div+div {margin:0;}.cv-details dt {font-size:10px;}
+ .cv-page:not(.cv-personal) {display:block;}.cv-job-heading {border:0;border-bottom:2px solid #d7cdc3;padding:0 0 12px;margin-bottom:14px;}
+ .cv-job-heading h3 {font-size:24px;margin:4px 0;}.cv-job-heading>p {font-size:12px;}.cv-job-copy h4:not(:first-child) {margin-top:14px;}
+ .cv-job-copy li span {font-size:12px;line-height:1.75;}.cv-job-copy li+li {margin-top:10px;}
+ .cv-footer {gap:10px;}.cv-footer button {min-height:36px;padding:6px 10px;font-size:12px;}.cv-pagination {gap:6px;}.cv-page-count {font-size:10px;}
+}
+@media(max-height:700px) and (max-width:640px) {
+ .cv-dialog {padding:12px;}.cv-dialog[open] {gap:10px;}.cv-dialog h2 {font-size:21px;}.cv-header {gap:8px;}.cv-eyebrow {font-size:8px;}
+ .cv-reading-area {padding:12px;}.cv-job-heading {padding-bottom:8px;margin-bottom:10px;}.cv-job-heading h3 {font-size:21px;}
+ .cv-dialog p,.cv-dialog li,.cv-dialog dd {font-size:12px;line-height:1.65;}.cv-job-copy h4:not(:first-child) {margin-top:10px;}
+ .cv-personal {gap:10px;}.cv-details {padding-top:8px;}.cv-details h4:not(:first-child) {margin-top:8px;}
+ .cv-dialog .cv-summary {font-size:11px;margin-top:4px;}.cv-details dl {gap:6px 16px;}
+}
+@media(prefers-reduced-motion:reduce) {.cv-dialog button:active:not(:disabled) {transform:none;}}
+
+.cv-contact-qr {margin:16px 0 0;}
+.cv-contact-qr a {display:block;width:min(148px,100%);}
+.cv-contact-qr img {display:block;width:100%;height:auto;border:6px solid #fff;}
+.cv-contact-qr figcaption {margin-top:6px;font:11px/1.6 'Fusion Pixel',monospace;color:var(--cv-muted);}
+.settings-action-row {display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px;margin:12px 0;border:2px solid #9daaa0;font:14px/1.5 'Fusion Pixel',monospace;}
+.cv-dialog .settings-action {margin:0;min-height:40px;min-width:76px;padding:6px 12px;border:2px solid var(--cv-ink);background:var(--cv-paper);color:var(--cv-ink);font:13px/1.5 'Fusion Pixel',monospace;}
+
+/* Only About becomes continuous; the project readers keep their pagination. */
+.about-dialog .cv-page {min-height:0;}
+.about-dialog .cv-page+.cv-page {margin-top:28px;padding-top:28px;border-top:2px solid #d7cdc3;}
+@media(max-width:640px) {
+ .about-dialog .cv-page+.cv-page {margin-top:22px;padding-top:22px;}
+}

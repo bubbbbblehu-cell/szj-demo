@@ -1,0 +1,5 @@
+/* Keep the added intro language control outside the existing content flow. */
+.intro-launcher .language-switch {
+ position:absolute;top:12px;right:12px;min-height:28px;padding:3px 8px;
+ font:12px/18px 'Fusion Pixel',monospace;cursor:pointer;
+}

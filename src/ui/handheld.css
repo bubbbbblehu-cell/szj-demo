@@ -1,0 +1,65 @@
+/* Original supplied PNG, cropped in CSS only. The transparent window holds the real canvas. */
+.handheld-mode .site-header {height:64px;padding:10px 28px;gap:20px;}
+.handheld-mode .wordmark {font-size:15px;letter-spacing:1.6px;}
+.handheld-mode .brand-copy {display:block;}
+.handheld-mode .edition {display:block;border:0;padding:0;margin:5px 0 0;color:#b9a0db;font-size:9px;line-height:1.4;letter-spacing:2px;}
+.handheld-mode .universe-shell {padding:8px 16px;align-items:center;justify-content:center;}
+.handheld-mode .retro-console {width:min(1288px,calc(100vw - 304px),calc((100dvh - 224px)*1.659794));min-width:0;}
+.handheld-housing {position:relative;isolation:isolate;display:block;aspect-ratio:1320/776;padding:0;border:0;border-radius:0;background:none;box-shadow:none;}
+.handheld-art {position:absolute;inset:0;z-index:3;width:100%;height:100%;pointer-events:none;image-rendering:pixelated;}
+@media(min-width:641px){.handheld-housing::before {content:none!important;}}
+.handheld-housing::before {content:'';position:absolute;inset:0;z-index:3;pointer-events:none;background:url('/assets/optimized/handheld-shell-user.webp') 50% 46.451613% / 105.847953% 139.948454% no-repeat;image-rendering:pixelated;}
+.handheld-screen {position:absolute;z-index:1;left:13.939394%;top:10.824742%;width:72.121212%;height:76.030928%;min-width:0;border:0;background:#252036;box-shadow:none;clip-path:polygon(12px 0,calc(100% - 12px) 0,100% 12px,100% calc(100% - 12px),calc(100% - 12px) 100%,12px 100%,0 calc(100% - 12px),0 12px);}
+.handheld-mode .retro-console .scene-frame {width:100%;height:100%;aspect-ratio:auto;border:0;border-radius:0;outline:0;background:#1d2949;box-shadow:none;}
+.handheld-mode .scene-frame::before {background-size:cover;background-position:center bottom;}
+.handheld-bottom {position:absolute;left:auto;right:0;top:calc(100% + 8px);height:32px;min-height:32px;padding:0;gap:0;}
+.handheld-bottom .camera-toolbar {margin-left:auto;gap:4px;}
+.handheld-mode .handheld-bottom .camera-toolbar button {width:28px;min-width:28px;height:28px;min-height:28px;border:2px solid #635184!important;border-top-color:#b8a2de!important;border-left-color:#b8a2de!important;border-bottom-width:3px!important;background:#8d78bc!important;color:#30273f!important;box-shadow:1px 2px 0 #51416e;font-size:14px;}
+.handheld-mode .handheld-bottom .camera-toolbar button:hover {background:#b8a2de!important;}
+.handheld-mode .planet-nav {width:100%;padding:0;gap:8px;margin-top:52px;}
+.handheld-mode .site-footer {min-height:28px;padding:6px 24px;}
+.handheld-mode .solar-planet-label {left:clamp(86px,var(--label-x,50%),calc(100% - 86px))!important;top:max(34px,var(--label-y,5%))!important;max-width:156px;font-size:11px;line-height:1.4;letter-spacing:.2px;padding:4px 6px;}
+.handheld-mode .solar-intro {bottom:5%;right:3%;}
+.handheld-mode .solar-camera-hint {bottom:24%;}
+@media(min-width:1101px) {
+ .handheld-mode .gamepad-dpad {left:12px;width:124px;height:124px;}
+ .handheld-mode .virtual-gamepad>.gamepad-actions {right:12px;width:124px;height:124px;}
+}
+body[data-boot=ready] .handheld-screen {animation:handheld-screen-on 220ms ease-out;}
+@keyframes handheld-screen-on {from{opacity:.72;}to{opacity:1;}}
+@media(max-width:1100px) {
+ .handheld-mode .retro-console {width:min(940px,calc(100vw - 40px));}
+ .handheld-mode .virtual-gamepad {margin-top:12px;max-width:100%;}
+ .handheld-mode .virtual-gamepad>.gamepad-dpad {left:0;}.handheld-mode .virtual-gamepad>.gamepad-actions {right:0;}
+ .handheld-mode .planet-nav {gap:6px;}
+}
+@media(max-width:960px) {
+ .handheld-mode .site-header {height:auto;min-height:104px;flex-direction:column;gap:12px;padding:12px 16px;}
+ .handheld-mode .header-tags {margin:0;max-width:100%;min-width:0;}
+ .handheld-mode .header-tags .exploration-bar {max-width:100%;justify-content:center;flex-wrap:wrap;row-gap:8px;}
+ .handheld-mode .wordmark {font-size:14px;}.handheld-mode .edition {font-size:8px;}
+}
+@media(max-width:640px) {
+ .handheld-mode .universe-shell {padding:8px 12px;gap:10px;}
+ .handheld-mode .retro-console {width:100%;}
+ /* Use the same image's bezel on narrow phones, preserving its pixel proportions. */
+ .handheld-housing {aspect-ratio:1034/658;}
+ .handheld-art {display:none;}
+ .handheld-housing::before {background-size:140.038685% 165.045593%;background-position:50.241546% 45.327103%;}
+ .handheld-screen {left:2.901354%;top:4.255319%;width:94.003868%;height:92.401216%;}
+ .handheld-mode .handheld-bottom .camera-toolbar button {width:32px;min-width:32px;height:32px;min-height:32px;font-size:13px;}
+ .handheld-mode .planet-nav {grid-template-columns:repeat(3,minmax(0,1fr));margin-top:52px;}
+ .handheld-mode .solar-planet-label {left:clamp(28px,var(--label-x,50%),calc(100% - 28px))!important;max-width:56px;font-size:10px;padding:4px;}
+ .handheld-mode .solar-intro small {font-size:6px;letter-spacing:.5px;}.handheld-mode .solar-intro p {font-size:8px;}
+ .handheld-mode .site-footer {padding:8px 12px;}
+}
+@media(prefers-reduced-motion:reduce) {body[data-boot=ready] .handheld-screen {animation:none;}}
+body[data-motion=off] .handheld-screen {animation:none;}
+
+/* White/grey hardware only; the screen and artwork keep their original colors. */
+.handheld-housing::before,.handheld-art {filter:grayscale(1) brightness(1.9);}
+.handheld-mode .handheld-bottom .camera-toolbar {filter:grayscale(1);}
+.handheld-mode .gamepad-dpad {filter:grayscale(1) drop-shadow(0 4px 0 #333333);}
+.handheld-mode .gamepad-actions {filter:grayscale(1);}
+
+.handheld-art-mobile {display:none;}

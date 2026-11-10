@@ -1,0 +1,95 @@
+/* Reuse the Work case paper-and-ink window across the upper navigation. */
+.cv-dialog button:not(.gamepad-action),.cv-dialog .project-link {
+ border-radius:0;color:var(--cv-ink);font-family:'Fusion Pixel',monospace;
+}
+.cv-dialog .pixel-button,.paged-modal.cv-dialog :is(.case-switcher button,.page-switcher button,.resume-exploration,.reader-details,.reader-directory,.music-play) {
+ border:2px solid var(--cv-ink)!important;border-bottom-width:2px!important;background:var(--cv-paper)!important;color:var(--cv-ink)!important;box-shadow:2px 2px 0 #c5bdba;
+}
+.cv-dialog button:hover:not(:disabled):not(.gamepad-action) {background:#e6dcd3!important;}
+.cv-dialog button:disabled {opacity:.4;}
+.cv-dialog :is(button,a,input):focus-visible {outline:2px dashed #7b5c89;outline-offset:3px;}
+.cv-dialog input {accent-color:#8b718e;}
+.cv-dialog .cv-header h2 {margin:4px 0 0;text-align:left;color:var(--cv-ink);font-size:28px;}
+.cv-dialog :is(.log-summary,.log-note) {color:var(--cv-muted);font-family:'Fusion Pixel',monospace;}
+.exploration-dialog.cv-dialog,.about-dialog.cv-dialog {height:620px;width:min(860px,calc(100% - 48px));overflow:visible;padding:28px 32px 22px;}
+.exploration-dialog .passport-grid {flex:1;min-height:0;grid-template-rows:repeat(2,minmax(0,1fr));margin:0;}
+.exploration-dialog .passport-world {min-height:0;border-color:#b7aaa9;background:#eee7dd!important;}
+.exploration-dialog .passport-world[data-visited=true] {border-color:#8eaa98;background:#e9eee3!important;}
+.exploration-dialog .passport-world img {height:clamp(40px,9vh,84px);}
+.exploration-dialog .log-summary {font-size:12px;}.exploration-dialog .log-note {font-size:11px;line-height:1.7;}
+.exploration-dialog .log-actions {flex-wrap:wrap;gap:12px;}
+.exploration-dialog .log-actions button {font-size:12px;}
+.desk-settings.cv-dialog {height:610px;width:min(540px,calc(100% - 48px));overflow:visible;padding:28px 32px 22px;}
+.settings-content {flex:1;min-height:0;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;}
+.desk-settings.cv-dialog label {border:2px solid #d0c5bf;background:#eee7dd;margin:0 0 10px;padding:12px;}
+.desk-settings.cv-dialog :is(output,small) {color:var(--cv-muted);}
+.desk-settings.cv-dialog input[type=checkbox] {background:var(--cv-paper);border-color:var(--cv-ink);}
+.desk-settings.cv-dialog input[type=checkbox]:checked {background:var(--cv-ink);}
+.music-dialog.cv-dialog {width:min(540px,calc(100% - 48px));height:470px;}
+.music-content {flex:1;min-height:0;overflow:auto;overscroll-behavior:contain;background:#eee7dd;padding:22px;}
+.cv-dialog .music-content h3 {font-size:26px;margin:0 0 8px;}
+.cv-dialog .music-status {color:var(--cv-accent);font-size:13px;min-height:24px;}
+.music-play {min-height:44px;margin:14px 0 20px;padding:8px 24px;border:2px solid var(--cv-ink);background:var(--cv-paper);box-shadow:2px 2px 0 #c5bdba;font-size:16px;}
+.music-volume {display:grid;grid-template-columns:1fr auto;gap:12px;font-size:14px;}
+.music-volume input {grid-column:1/-1;width:100%;margin:0;min-height:28px;}
+.cv-dialog .music-note {font-size:11px;line-height:1.7;color:var(--cv-muted);margin-top:14px;}
+body:has(#music-panel[open]) .header-tags [data-panel=music-panel] {filter:drop-shadow(1px 0 0 #c6b5ed) drop-shadow(-1px 0 0 #c6b5ed) drop-shadow(0 3px 0 #77768e);}
+
+.paged-modal.cv-dialog {width:min(1100px,calc(100% - 48px));height:min(850px,calc(100dvh - 48px));max-height:calc(100dvh - 48px);padding:0;gap:0;overflow:visible;}
+.paged-modal.cv-dialog .portfolio-panel {width:100%;height:100%;padding:20px 24px 16px;display:grid;grid-template-rows:auto auto minmax(0,1fr) auto auto;gap:14px;background:var(--cv-paper);box-shadow:none;}
+.paged-modal.cv-dialog .case-window-header {padding:0;border:0;align-items:flex-start;}
+.paged-modal.cv-dialog #project-title {font:22px/1.45 'Fusion Pixel',monospace;color:var(--cv-ink);margin:6px 0 0;}
+.paged-modal.cv-dialog .case-category {font-size:11px;line-height:1.6;letter-spacing:1px;color:var(--cv-muted);}
+.reader-toolbar {display:flex;align-items:center;gap:16px;padding-bottom:12px;border-bottom:2px solid #d5ccc5;min-width:0;}
+.reader-toolbar .case-switcher {flex:1;max-width:600px;}
+.reader-toolbar .reader-details {margin-left:auto;flex-shrink:0;}
+.paged-modal.cv-dialog :is(.case-switcher button,.page-switcher button,.reader-details,.reader-directory,.resume-exploration) {padding:6px 12px;min-height:36px;font:12px/1.5 'Fusion Pixel',monospace;cursor:pointer;}
+.paged-modal.cv-dialog :is(.case-switcher span,.page-switcher span) {color:var(--cv-muted);font-size:12px;}
+.paged-modal.cv-dialog .case-stage {background:#eee7dd;border:1px solid #d5ccc5;}
+.paged-modal.cv-dialog .case-page-image {object-fit:contain;object-position:center;width:100%;height:100%;max-width:100%;max-height:100%;image-rendering:auto;}
+.paged-modal.cv-dialog .case-page-image.is-preview {opacity:.6;}
+.paged-modal.cv-dialog .case-page-text {padding:14px 18px;margin:0;color:var(--cv-ink);font:16px/1.9 'Fusion Pixel',monospace;}
+.paged-modal.cv-dialog .case-window-footer {flex-wrap:wrap;display:flex;gap:14px;}
+.paged-modal.cv-dialog .page-switcher {flex:1;min-width:170px;max-width:300px;}
+.paged-modal.cv-dialog .project-link {font-size:12px;color:var(--cv-accent);text-underline-offset:4px;}
+.paged-modal.cv-dialog .reader-directory {margin-left:auto;}
+.paged-modal.cv-dialog .reader-hint {font:10px/1.6 'Fusion Pixel',monospace;color:var(--cv-muted);margin:0;}
+.reader-image-status {position:absolute;bottom:12px;left:50%;transform:translateX(-50%);width:max-content;max-width:calc(100% - 24px);padding:7px 12px;border:1px solid #b7aaa9;background:#f8f4ebed;color:#79727c;font:12px/1.6 'Fusion Pixel',monospace;text-align:center;}
+.reader-image-status button {display:block;padding:6px 12px;margin:5px auto 0;border:2px solid #514e58;background:#f8f4eb;min-height:36px;}
+@media(max-width:1100px) {
+ .paged-modal.cv-dialog {top:16px;height:calc(100dvh - 166px);max-height:calc(100dvh - 166px);}
+}
+@media(max-width:640px) {
+ .exploration-dialog.cv-dialog,.about-dialog.cv-dialog,.desk-settings.cv-dialog,.music-dialog.cv-dialog {width:calc(100% - 24px);padding:18px 16px 14px;}
+ .cv-dialog .cv-header h2 {font-size:24px;}
+ .exploration-dialog .passport-grid {grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(3,minmax(0,1fr));gap:8px;}
+ .exploration-dialog .passport-world {padding:6px;gap:4px;}.exploration-dialog .passport-world img {height:36px;}
+ .exploration-dialog .passport-world strong {font-size:11px;}.exploration-dialog .passport-world small {font-size:9px;}
+ .music-content {padding:16px;}.music-dialog.cv-dialog {height:440px;}
+ .paged-modal.cv-dialog {width:calc(100% - 24px);max-width:calc(100% - 24px);}
+ .paged-modal.cv-dialog .portfolio-panel {padding:12px;gap:10px;}
+ .paged-modal.cv-dialog #project-title {font-size:17px;line-height:1.45;}
+ .paged-modal.cv-dialog .case-category {font-size:9px;letter-spacing:0;}
+ .paged-modal.cv-dialog .cv-header {gap:8px;}.paged-modal .cv-mark {display:none;}
+ .reader-toolbar {gap:8px;flex-wrap:wrap;padding-bottom:8px;}
+ .reader-toolbar .case-switcher {flex-basis:100%;}.reader-toolbar .reader-details {font-size:11px;min-height:32px;}
+ .paged-modal.cv-dialog :is(.case-switcher button,.page-switcher button,.reader-directory,.resume-exploration) {font-size:11px;padding:5px 8px;min-height:36px;}
+ .paged-modal.cv-dialog .case-window-footer {gap:8px;}
+ .paged-modal.cv-dialog .page-switcher {flex-basis:100%;max-width:none;min-width:0;}
+ .paged-modal.cv-dialog .page-switcher button {min-width:52px;}
+ .paged-modal.cv-dialog .project-link {font-size:10px;}
+ .paged-modal.cv-dialog .reader-directory {margin-left:auto;}
+ .paged-modal.cv-dialog .resume-exploration {margin-left:auto;}
+ .paged-modal.cv-dialog .case-page-text {font-size:14px;line-height:1.9;padding:12px;}
+ .paged-modal.cv-dialog .reader-hint {font-size:9px;}
+}
+@media(max-height:700px) and (max-width:640px) {
+ .paged-modal.cv-dialog .portfolio-panel {gap:6px;padding:8px;}
+ .paged-modal.cv-dialog #project-title {font-size:15px;}
+ .reader-toolbar {padding-bottom:4px;}
+ .paged-modal.cv-dialog .reader-hint {display:none;}
+ .exploration-dialog.cv-dialog,.about-dialog.cv-dialog,.desk-settings.cv-dialog {padding:12px;}
+ .cv-dialog .cv-header h2 {font-size:21px;}
+ .desk-settings.cv-dialog label {padding:9px;margin-bottom:8px;}
+}
+@media(prefers-reduced-motion:reduce) {.cv-dialog button:active:not(:disabled) {transform:none!important;}}

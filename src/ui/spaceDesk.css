@@ -1,0 +1,61 @@
+/* Only small utility tags are added to the original centered universe. */
+.solar-mode .site-header { height:56px; padding:0 28px; gap:24px; }
+.solar-mode .universe-shell { display:flex; padding:8px 18px; margin:0; flex:1; min-height:0; }
+.solar-mode .retro-console { width:min(900px,100%,calc((100dvh - 250px)*1.2495)); }
+.solar-mode .site-footer { min-height:36px; padding:8px 28px; gap:8px; }
+.header-tags { margin-left:auto; }
+.header-tags .exploration-bar { display:flex; flex-direction:row; align-items:center; flex-wrap:nowrap; gap:8px; margin:0; }
+.header-tags .experience-tools { display:contents; }
+.header-tags .pixel-button {
+ position:relative; flex:none; min-width:0; min-height:28px; height:28px; padding:3px 10px;
+ border:2px solid #6e6b82!important; color:#38394f!important; background:#eeedf0!important;
+ box-shadow:2px 2px 0 #111629; font:12px/18px 'Fusion Pixel',monospace; white-space:nowrap;
+}
+.header-tags .pixel-button::before { content:''; position:absolute; left:calc(50% - 3px); top:-6px; width:6px; height:3px; background:#a9b8cb; box-shadow:0 -2px 0 #d5e1e5; }
+.header-tags .pixel-button:hover,.header-tags .pixel-button:focus-visible { background:#f9f7ee!important; border-color:#b3a6cf!important; }
+.header-tags .pixel-button:active { transform:translateY(1px); border-bottom-width:2px!important; box-shadow:1px 1px 0 #111629; }
+.header-tags .pixel-button[aria-pressed=true] { background:#d0dedc!important; }
+.header-tags .exploration-summary { display:inline-flex; gap:0; justify-content:center; }
+.header-tags .exploration-summary>span:first-child { font-size:12px; }
+.header-tags .exploration-percent { display:none; }
+.header-tags .pixel-progress { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); }
+/* Restore the quiet purple category strip below the original monitor. */
+.planet-nav { gap:6px; margin-top:10px; }
+.planet-nav-item { min-height:62px; gap:3px; padding:5px 4px 15px; font-size:11px; }
+.planet-nav-item img { width:24px; height:24px; }
+.visit-stamp { font-size:9px; }
+/* The settings and short biography are revealed only when requested. */
+.desk-settings { width:min(460px,calc(100% - 28px)); max-height:90dvh; overflow:auto; padding:32px 24px 24px; color-scheme:light; }
+.desk-settings h2 { font-size:24px; font-weight:400; text-align:center; margin:6px 0 24px; }
+.desk-settings label { display:flex; align-items:center; flex-direction:row-reverse; justify-content:space-between; gap:16px; padding:12px; border:2px solid #9daaa0; margin:12px 0; font-size:14px; line-height:1.5; }
+.desk-settings input[type=checkbox] { appearance:none; margin:0; width:24px; height:24px; flex-shrink:0; background:#f8f3e8; border:2px solid #596b64; border-radius:0; display:grid; place-content:center; }
+.desk-settings input[type=checkbox]:checked { background:#596b64; }
+.desk-settings input[type=checkbox]:checked::after { content:'✓'; font:20px/1 'Fusion Pixel',monospace; color:#f8f3e8; }
+.desk-settings .desk-volume { display:grid; grid-template-columns:1fr auto; gap:10px; }
+.desk-volume input { width:100%; grid-column:1/-1; accent-color:#728e80; }
+.desk-settings output { color:#5c796b; }
+.desk-settings small { display:block; font-size:11px; color:#657878; line-height:1.8; margin:16px 0; }
+.desk-settings>.pixel-button:last-child { width:100%; }
+.about-dialog { width:min(420px,calc(100% - 28px)); }
+.about-dialog h2 { font-size:24px; font-weight:400; margin:0 0 12px; }
+.about-dialog .about-role { color:#5d7b6d; font-size:12px; }
+.about-dialog p { font:14px/1.9 -apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif; }
+.about-dialog>.pixel-button { margin-top:8px; width:100%; }
+@media(max-width:1100px) { .site-header .edition { display:none; } }
+@media(max-width:720px) {
+ .solar-mode .site-header { height:auto; min-height:84px; flex-direction:column; justify-content:center; align-items:center; gap:12px; padding:12px 10px 8px; }
+ .wordmark { font-size:11px; }.brand-star{font-size:18px;}
+ .header-tags { margin:0; }.header-tags .exploration-bar{gap:6px;}
+ .header-tags .pixel-button{min-height:28px;height:28px;font-size:10px;padding:3px 7px;}
+ .header-tags .exploration-summary>span:first-child{font-size:10px;}
+ .solar-mode .universe-shell { margin-top:0; padding:8px 12px; flex:1; }
+ .solar-mode .retro-console { width:min(100%,calc((100dvh - 280px)*1.2495)); }
+ .planet-nav { grid-template-columns:repeat(3,minmax(0,1fr));gap:6px; }
+ .planet-nav-item { min-height:46px; flex-direction:row; padding:5px 3px 13px; gap:4px; font-size:10px; }
+ .planet-nav-item img { width:24px; height:24px; }.planet-nav-item span{max-width:none;}
+ .visit-stamp{font-size:8px;bottom:2px;}
+ .solar-mode .site-footer { flex-direction:column; justify-content:center; min-height:36px; margin:0; padding:5px 10px; gap:4px; font-size:8px; }
+ .solar-mode .controls-hint{font-size:8px;}
+ .desk-settings{padding:32px 16px 18px;}.desk-settings label{font-size:12px;}
+}
+@media(max-height:560px) { .solar-mode .retro-console{width:min(100%,480px);} }
