@@ -822,49 +822,49 @@ const cases: Record<string, PortfolioCase> = {
     ],
     "sections": [],
     "credit": "案例资料：宋志杰工作文档 · 按工作类型整理，反馈保留原文口径",
-    "image": "assets/cases/document/image65.webp",
+    "image": "assets/cases/h5-hd-20261111/h5-ink-01-d88be001e61f.png",
     "gallery": [
       {
-        "src": "assets/cases/document/image66.webp",
+        "src": "assets/cases/h5-hd-20261111/h5-ink-02-f2262cc1e8a5.png",
         "alt": "王者荣耀 · 墨染江湖 · 作品展示 2",
-        "width": 1440,
-        "height": 661
+        "width": 1984,
+        "height": 911
       },
       {
-        "src": "assets/cases/document/image67.webp",
+        "src": "assets/cases/h5-hd-20261111/h5-ink-03-263810a155a2.png",
         "alt": "王者荣耀 · 墨染江湖 · 作品展示 3",
-        "width": 1440,
-        "height": 682
+        "width": 1966,
+        "height": 931
       },
       {
-        "src": "assets/cases/document/image68.webp",
+        "src": "assets/cases/h5-hd-20261111/h5-ink-04-bdd8abe780aa.png",
         "alt": "王者荣耀 · 墨染江湖 · 作品展示 4",
-        "width": 1440,
-        "height": 745
+        "width": 1926,
+        "height": 996
       },
       {
-        "src": "assets/cases/document/image69.webp",
+        "src": "assets/cases/h5-hd-20261111/h5-ink-05-092158063809.png",
         "alt": "王者荣耀 · 墨染江湖 · 作品展示 5",
-        "width": 1440,
-        "height": 585
+        "width": 1987,
+        "height": 807
       },
       {
-        "src": "assets/cases/document/image70.webp",
+        "src": "assets/cases/h5-hd-20261111/h5-ink-06-32fb9ff64785.png",
         "alt": "王者荣耀 · 墨染江湖 · 作品展示 6",
-        "width": 1440,
-        "height": 665
+        "width": 3248,
+        "height": 1500
       },
       {
-        "src": "assets/cases/document/image71.webp",
+        "src": "assets/cases/h5-hd-20261111/h5-ink-07-cf11c4a2baf4.png",
         "alt": "王者荣耀 · 墨染江湖 · 作品展示 7",
-        "width": 1440,
-        "height": 665
+        "width": 3248,
+        "height": 1500
       },
       {
-        "src": "assets/cases/document/image72.webp",
+        "src": "assets/cases/h5-hd-20261111/h5-ink-08-2384eda48f11.png",
         "alt": "王者荣耀 · 墨染江湖 · 作品展示 8",
-        "width": 1440,
-        "height": 665
+        "width": 3248,
+        "height": 1500
       }
     ],
     "href": "https://pvp.qq.com/cp/a20240708/index.html?e_code=535736&ingamefullscreen=1",
@@ -884,43 +884,43 @@ const cases: Record<string, PortfolioCase> = {
     ],
     "sections": [],
     "credit": "案例资料：宋志杰工作文档 · 按工作类型整理，反馈保留原文口径",
-    "image": "assets/cases/document/image73.webp",
+    "image": "assets/cases/h5-hd-20261111/h5-amber-01-85998c17559e.png",
     "gallery": [
       {
-        "src": "assets/cases/document/image74.webp",
+        "src": "assets/cases/h5-hd-20261111/h5-amber-02-69230965b862.png",
         "alt": "王者荣耀 · 琥珀纪元 · 作品展示 2",
-        "width": 1440,
-        "height": 720
+        "width": 1970,
+        "height": 985
       },
       {
-        "src": "assets/cases/document/image75.webp",
+        "src": "assets/cases/h5-hd-20261111/h5-amber-03-d0e034fa2a8f.png",
         "alt": "王者荣耀 · 琥珀纪元 · 作品展示 3",
-        "width": 1440,
-        "height": 665
+        "width": 3248,
+        "height": 1500
       },
       {
-        "src": "assets/cases/document/image76.webp",
+        "src": "assets/cases/h5-hd-20261111/h5-amber-04-903791d9b17c.png",
         "alt": "王者荣耀 · 琥珀纪元 · 作品展示 4",
-        "width": 1440,
-        "height": 665
+        "width": 2000,
+        "height": 924
       },
       {
-        "src": "assets/cases/document/image77.webp",
+        "src": "assets/cases/h5-hd-20261111/h5-amber-05-a9325c0422f5.png",
         "alt": "王者荣耀 · 琥珀纪元 · 作品展示 5",
-        "width": 1440,
-        "height": 665
+        "width": 2000,
+        "height": 924
       },
       {
-        "src": "assets/cases/document/image78.webp",
+        "src": "assets/cases/h5-hd-20261111/h5-amber-06-2d648ca47437.png",
         "alt": "王者荣耀 · 琥珀纪元 · 作品展示 6",
-        "width": 1440,
-        "height": 665
+        "width": 3248,
+        "height": 1500
       }
     ],
     "href": "https://pvp.qq.com/cp/a20240115wzfb/?e_code=535736&ingamefullscreen=1",
     "imageSize": {
-      "width": 1440,
-      "height": 885
+      "width": 1660,
+      "height": 1020
     }
   },
   "h5-time": {
@@ -1007,43 +1007,43 @@ const cases: Record<string, PortfolioCase> = {
       }
     ],
     "credit": "案例资料：宋志杰工作文档 · 按工作类型整理，反馈保留原文口径",
-    "image": "assets/cases/document/image88.webp",
+    "image": "assets/cases/h5-hd-20261111/h5-tft-01-db2e1cc42d98.png",
     "gallery": [
       {
-        "src": "assets/cases/document/image89.webp",
+        "src": "assets/cases/h5-hd-20261111/h5-tft-02-a403eb61ec2e.png",
         "alt": "云顶之弈 · 画中灵集卡活动 · 作品展示 2",
         "width": 1216,
         "height": 1108
       },
       {
-        "src": "assets/cases/document/image90.webp",
+        "src": "assets/cases/h5-hd-20261111/h5-tft-03-5b45d7fc2b95.png",
         "alt": "云顶之弈 · 画中灵集卡活动 · 作品展示 3",
         "width": 1406,
         "height": 711
       },
       {
-        "src": "assets/cases/document/image91.webp",
+        "src": "assets/cases/h5-hd-20261111/h5-tft-04-4d11fd30e3de.png",
         "alt": "云顶之弈 · 画中灵集卡活动 · 作品展示 4",
         "width": 1408,
         "height": 719
       },
       {
-        "src": "assets/cases/document/image92.webp",
+        "src": "assets/cases/h5-hd-20261111/h5-tft-05-02661b255012.png",
         "alt": "云顶之弈 · 画中灵集卡活动 · 作品展示 5",
         "width": 1409,
         "height": 714
       },
       {
-        "src": "assets/cases/document/image93.webp",
+        "src": "assets/cases/h5-hd-20261111/h5-tft-06-c0d83b0cf803.png",
         "alt": "云顶之弈 · 画中灵集卡活动 · 作品展示 6",
         "width": 1406,
         "height": 712
       },
       {
-        "src": "assets/cases/document/image94.webp",
+        "src": "assets/cases/h5-hd-20261111/h5-tft-07-5df267eeec26.png",
         "alt": "云顶之弈 · 画中灵集卡活动 · 作品展示 7",
-        "width": 1440,
-        "height": 728
+        "width": 1796,
+        "height": 908
       }
     ],
     "imageSize": {
