@@ -9,7 +9,6 @@ import { PortfolioModal } from './ui/PortfolioModal';
 import { PortfolioExperience } from './experience/PortfolioExperience';
 import { mountOuterStarfield } from './background/OuterStarfield';
 import { LoadingScreen } from './ui/LoadingScreen';
-import { loadImage } from './solar/textures';
 import './style.css';
 import './ui/spaceDesk.css';
 import './ui/controlsV03.css';
@@ -27,17 +26,16 @@ translateDocument();
 const destroyHomeLayout=mountHomeLayout();
 const destroyPawCursor=mountPawCursor();
 const boot = new LoadingScreen();
-let sceneFraction=0,shellCompleted=0;
-const updateBoot=()=>boot.setProgress(.05+.75*sceneFraction+.2*shellCompleted/5);
-updateBoot(); // The application module has loaded; scene assets are next.
-let resolveScene!:()=>void;
-const sceneReady=new Promise<void>(resolve=>{resolveScene=resolve;});
-const shellReady=Promise.all([
-  document.fonts.load('12px "Fusion Pixel"'),
-  ...['optimized/dog-cabin-v2-user.webp','optimized/sleep-open-ring.webp','optimized/universe-reference-e55177f834b2.webp','optimized/handheld-shell-user.webp'].map(file=>loadImage(`${import.meta.env.BASE_URL}assets/${file}`)),
-].map(promise=>promise.then(()=>{shellCompleted++;updateBoot();})));
-void shellReady.catch(()=>boot.fail(translateUI('页面素材加载失败，请重新加载。')));
-void Promise.all([sceneReady,shellReady]).then(async()=>{await boot.finish();if(document.body.dataset.boot==='ready'){region.focus({preventScroll:true});experience?.onBootReady();}}).catch(()=>boot.fail(translateUI('页面素材加载失败，请重新加载。')));
+// CSS and HTML load decorative art and the font independently of the 3D scene.
+boot.setProgress(0.05);
+
+async function revealScene(): Promise<void> {
+  await boot.finish();
+  if (document.body.dataset.boot === 'ready') {
+    region.focus({ preventScroll: true });
+    experience?.onBootReady();
+  }
+}
 
 const destroyOuterStarfield = mountOuterStarfield();
 
@@ -92,8 +90,8 @@ document.querySelectorAll<HTMLButtonElement>('.exploration-bar button').forEach(
 });
 try {
   solar = new SolarSystem(region, {
-    ready: () => { loading.hidden = true; [...labels.values(), ...navButtons].forEach(button => { button.disabled = false; }); experience?.onReady(); resolveScene(); },
-    progress: (completed,total) => { sceneFraction=completed/total;updateBoot(); },
+    ready: () => { loading.hidden = true; [...labels.values(), ...navButtons].forEach(button => { button.disabled = false; }); experience?.onReady(); void revealScene(); },
+    progress: (completed, total) => boot.setProgress(0.05 + 0.95 * completed / total),
     status: message => { status.textContent = message; },
     arrive: project => { modal.open(project,returnFocus.isConnected&&!returnFocus.hidden?returnFocus:region,experience?.readerContext(project)); },
     error: message => { loading.hidden = false; loading.textContent = message; boot.fail(message); },
