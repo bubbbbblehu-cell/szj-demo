@@ -105,7 +105,7 @@ export class SolarSystem {
   }
 
   private async load(): Promise<void> {
-    const files = [...SOLAR_BODIES.map(body => `solar/${body.strip}`), 'optimized/portrait-open-ring-transparent.webp', 'optimized/flight-open-ring.webp'];
+    const files = [...SOLAR_BODIES.map(body => `solar/${body.file}`), 'optimized/portrait-open-ring-transparent.webp', 'optimized/flight-open-ring.webp'];
     let completed=0;
     const report=()=>{completed++;if(!this.disposed)this.events.progress?.(completed,files.length+1);};
     const images = await Promise.all(files.map(file => loadImage(`${BASE}assets/${file}`).then(image=>{report();return image;})));
@@ -138,6 +138,20 @@ export class SolarSystem {
     this.makeStars(); this.moveBodies(0); this.resize();
     this.renderer.render(this.scene,this.camera); report();
     this.events.ready(); this.frame = requestAnimationFrame(this.tick);
+  }
+
+  async loadPlanetAnimations(): Promise<void> {
+    // Download one atlas at a time after the usable scene has been revealed.
+    for (const body of this.bodies) {
+      if (this.disposed) return;
+      try {
+        const image = await loadImage(`${BASE}assets/solar/${body.spec.strip}`);
+        if (this.disposed) return;
+        body.strip.setImage(image);
+      } catch {
+        // Keep this planet's still interactive if its optional animation fails.
+      }
+    }
   }
 
   private makeStars(): void {

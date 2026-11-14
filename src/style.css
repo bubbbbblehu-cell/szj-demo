@@ -87,7 +87,8 @@ kbd { display: inline-block; font: 10px ui-monospace, SFMono-Regular, monospace;
 .monitor-topline > span:first-child { color: #46534a; font-weight: 700; }
 .monitor-topline i { height: 6px; width: 35px; margin-left: auto; background: repeating-linear-gradient(90deg, #747c6b 0 2px, transparent 2px 5px); }
 .solar-mode .retro-console .scene-frame { width: 100%; height: auto; min-height: 0; max-width: none; flex: none; aspect-ratio: 2048 / 1639; border: 0; border-radius: 6px; outline: 3px solid #30393a; outline-offset: 0; background: #1d2949; box-shadow: none; }
-.solar-mode .scene-frame::before { content: ''; position: absolute; inset: 0; background: url('/assets/optimized/universe-reference-e55177f834b2.webp') center / contain no-repeat; image-rendering: pixelated; pointer-events: none; }
+.solar-mode .scene-frame::before { content: ''; position: absolute; inset: 0; background-position: center; background-size: contain; background-repeat: no-repeat; image-rendering: pixelated; pointer-events: none; }
+body[data-boot="ready"] .scene-frame::before { background-image: url('/assets/optimized/universe-reference-e55177f834b2.webp'); }
 .solar-mode .scene-frame::after { content: ''; position: absolute; inset: 0; z-index: 4; pointer-events: none; opacity: .025; background: repeating-linear-gradient(0deg, #031020 0 1px, transparent 1px 3px); }
 .ground-strip { display: none; }
 .solar-mode #game, .solar-mode #planet-controls { position: absolute; inset: 0 0 30%; }
@@ -143,7 +144,6 @@ kbd { display: inline-block; font: 10px ui-monospace, SFMono-Regular, monospace;
 @media (prefers-reduced-motion: reduce) { .solar-mode .scene-frame::after { display: none; } }
 
 /* 工作档案与小狗休息区。背景固定在所有互动内容下方。 */
-@font-face { font-family: 'Fusion Pixel'; src: url('/assets/fonts/fusion-pixel-12px.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
 .solar-mode { font-family: 'Fusion Pixel', monospace; }
 .solar-mode .scene-frame { isolation: isolate; }
 .solar-mode .scene-frame::before { z-index: 0; }

@@ -26,18 +26,21 @@ translateDocument();
 const destroyHomeLayout=mountHomeLayout();
 const destroyPawCursor=mountPawCursor();
 const boot = new LoadingScreen();
-// CSS and HTML load decorative art and the font independently of the 3D scene.
 boot.setProgress(0.05);
+let destroyOuterStarfield = () => {};
 
 async function revealScene(): Promise<void> {
   await boot.finish();
   if (document.body.dataset.boot === 'ready') {
     region.focus({ preventScroll: true });
     experience?.onBootReady();
+    destroyOuterStarfield = mountOuterStarfield();
+    const font = new FontFace('Fusion Pixel', `url("${import.meta.env.BASE_URL}assets/fonts/fusion-pixel-12px.woff2")`, { display: 'swap' });
+    document.fonts.add(font);
+    void font.load().catch(() => { /* The system font stays readable offline. */ });
+    void solar?.loadPlanetAnimations();
   }
 }
-
-const destroyOuterStarfield = mountOuterStarfield();
 
 const region = document.querySelector<HTMLDivElement>('#game')!;
 const loading = document.querySelector<HTMLElement>('#loading')!;
