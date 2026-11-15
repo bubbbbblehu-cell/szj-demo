@@ -88,7 +88,7 @@ kbd { display: inline-block; font: 10px ui-monospace, SFMono-Regular, monospace;
 .monitor-topline i { height: 6px; width: 35px; margin-left: auto; background: repeating-linear-gradient(90deg, #747c6b 0 2px, transparent 2px 5px); }
 .solar-mode .retro-console .scene-frame { width: 100%; height: auto; min-height: 0; max-width: none; flex: none; aspect-ratio: 2048 / 1639; border: 0; border-radius: 6px; outline: 3px solid #30393a; outline-offset: 0; background: #1d2949; box-shadow: none; }
 .solar-mode .scene-frame::before { content: ''; position: absolute; inset: 0; background-position: center; background-size: contain; background-repeat: no-repeat; image-rendering: pixelated; pointer-events: none; }
-body[data-boot="ready"] .scene-frame::before { background-image: url('/assets/optimized/universe-reference-e55177f834b2.webp'); }
+body[data-boot="ready"] .scene-frame::before { background-image: var(--home-scene-image); }
 .solar-mode .scene-frame::after { content: ''; position: absolute; inset: 0; z-index: 4; pointer-events: none; opacity: .025; background: repeating-linear-gradient(0deg, #031020 0 1px, transparent 1px 3px); }
 .ground-strip { display: none; }
 .solar-mode #game, .solar-mode #planet-controls { position: absolute; inset: 0 0 30%; }
@@ -369,7 +369,7 @@ body[data-boot="ready"] .scene-frame::before { background-image: url('/assets/op
 .outer-starfield { position:fixed; inset:-8px; z-index:0; overflow:hidden; pointer-events:none; background:#0b1025; filter:brightness(.58) saturate(.82); transform:translate(var(--outer-x,0px),var(--outer-y,0px)); }
 .outer-starfield * { pointer-events:none; }
 .outer-starfield .space-nebula,.outer-starfield .space-stars { position:absolute; inset:0; width:100%; height:100%; }
-.outer-starfield .space-nebula { background:url('/assets/optimized/space-nebula.webp') 50% 50% / cover no-repeat; }
+.outer-starfield .space-nebula { background:var(--home-nebula-image) 50% 50% / cover no-repeat; }
 .outer-starfield .space-stars { display:block; }
 .outer-starfield::after { content:''; position:absolute; inset:0; background:linear-gradient(90deg,#0b102514,#0b102550 38%,#0b102550 62%,#0b102514); }
 .solar-mode #app { position:relative; z-index:1; background:transparent; }

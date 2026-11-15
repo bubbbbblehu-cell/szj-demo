@@ -1,5 +1,6 @@
 import { mountDialogMotion } from './ui/DialogMotion';
 import { mountHomeLayout } from './ui/HomeLayout';
+import { mountHomeArtwork } from './ui/HomeArtwork';
 import { mountPawCursor } from './ui/PawCursor';
 import { t as translateUI, translateDocument } from './i18n';
 import { VirtualGamepad } from './ui/VirtualGamepad';
@@ -23,6 +24,7 @@ import './ui/revision.css';
 import './ui/refresh.css';
 
 translateDocument();
+const homeArtwork = mountHomeArtwork();
 const destroyHomeLayout=mountHomeLayout();
 const destroyPawCursor=mountPawCursor();
 const boot = new LoadingScreen();
@@ -35,6 +37,7 @@ async function revealScene(): Promise<void> {
     region.focus({ preventScroll: true });
     experience?.onBootReady();
     destroyOuterStarfield = mountOuterStarfield();
+    void homeArtwork.loadFullSize();
     const font = new FontFace('Fusion Pixel', `url("${import.meta.env.BASE_URL}assets/fonts/fusion-pixel-12px.woff2")`, { display: 'swap' });
     document.fonts.add(font);
     void font.load().catch(() => { /* The system font stays readable offline. */ });
@@ -135,4 +138,4 @@ pause.addEventListener('click', () => {
   pause.textContent = paused ? '▷' : 'Ⅱ';
   document.querySelector('.retro-console')?.classList.toggle('is-paused', paused);
 });
-if (import.meta.hot) import.meta.hot.dispose(() => { destroyDialogMotion();destroyHomeLayout();destroyPawCursor();boot.destroy();gamepad.destroy();window.removeEventListener('pixel:gamepad',gamepadPreference);solar?.destroy(); modal.destroy(); experience?.destroy(); destroyOuterStarfield(); window.removeEventListener('pixel:motion',motionPreference); });
+if (import.meta.hot) import.meta.hot.dispose(() => { homeArtwork.destroy();destroyDialogMotion();destroyHomeLayout();destroyPawCursor();boot.destroy();gamepad.destroy();window.removeEventListener('pixel:gamepad',gamepadPreference);solar?.destroy(); modal.destroy(); experience?.destroy(); destroyOuterStarfield(); window.removeEventListener('pixel:motion',motionPreference); });

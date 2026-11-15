@@ -8,7 +8,7 @@
 .handheld-housing {position:relative;isolation:isolate;display:block;aspect-ratio:1320/776;padding:0;border:0;border-radius:0;background:none;box-shadow:none;}
 .handheld-art {position:absolute;inset:0;z-index:3;width:100%;height:100%;pointer-events:none;image-rendering:pixelated;}
 @media(min-width:641px){.handheld-housing::before {content:none!important;}}
-.handheld-housing::before {content:'';position:absolute;inset:0;z-index:3;pointer-events:none;background:url('/assets/optimized/handheld-shell-user.webp') 50% 46.451613% / 105.847953% 139.948454% no-repeat;image-rendering:pixelated;}
+.handheld-housing::before {content:'';position:absolute;inset:0;z-index:3;pointer-events:none;background:var(--home-shell-image) 50% 46.451613% / 105.847953% 139.948454% no-repeat;image-rendering:pixelated;}
 .handheld-screen {position:absolute;z-index:1;left:13.939394%;top:10.824742%;width:72.121212%;height:76.030928%;min-width:0;border:0;background:#252036;box-shadow:none;clip-path:polygon(12px 0,calc(100% - 12px) 0,100% 12px,100% calc(100% - 12px),calc(100% - 12px) 100%,12px 100%,0 calc(100% - 12px),0 12px);}
 .handheld-mode .retro-console .scene-frame {width:100%;height:100%;aspect-ratio:auto;border:0;border-radius:0;outline:0;background:#1d2949;box-shadow:none;}
 .handheld-mode .scene-frame::before {background-size:cover;background-position:center bottom;}
