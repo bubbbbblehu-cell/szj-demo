@@ -38,7 +38,7 @@ async function revealScene(): Promise<void> {
     experience?.onBootReady();
     destroyOuterStarfield = mountOuterStarfield();
     void homeArtwork.loadFullSize();
-    const font = new FontFace('Fusion Pixel', `url("${import.meta.env.BASE_URL}assets/fonts/fusion-pixel-12px.woff2")`, { display: 'swap' });
+    const font = new FontFace('Fusion Pixel', `url("${import.meta.env.BASE_URL}assets/fonts/site-13266a2e38.woff2")`, { display: 'swap' });
     document.fonts.add(font);
     void font.load().catch(() => { /* The system font stays readable offline. */ });
     void solar?.loadPlanetAnimations();

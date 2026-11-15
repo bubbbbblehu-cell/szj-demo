@@ -243,7 +243,7 @@ export function createStarfield(root, options = {}) {
     }
   };
   sourceImage.onerror = () => { sourceError = 'Background image could not be decoded.'; };
-  sourceImage.src = `${import.meta.env.BASE_URL}assets/optimized/space-nebula.webp`;
+  sourceImage.src = `${import.meta.env.BASE_URL}assets/optimized/display-space-nebula-462a3d6692.webp`;
 
   return {
     update(changes = {}) {

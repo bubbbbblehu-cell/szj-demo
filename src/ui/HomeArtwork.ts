@@ -8,9 +8,9 @@ export function mountHomeArtwork() {
   const style = document.body.style;
   const shellImages = document.querySelectorAll<SVGImageElement>('.handheld-art image[data-full-src]');
   const artwork = [
-    { property: '--home-nebula-image', preview: nebulaPreview, file: 'space-nebula.webp' },
-    { property: '--home-scene-image', preview: scenePreview, file: 'universe-reference-e55177f834b2.webp' },
-    { property: '--home-shell-image', preview: shellPreview, file: 'handheld-shell-user.webp' },
+    { property: '--home-nebula-image', preview: nebulaPreview, file: 'display-space-nebula-462a3d6692.webp' },
+    { property: '--home-scene-image', preview: scenePreview, file: 'display-universe-reference-e55177f834b2-93b9417869.webp' },
+    { property: '--home-shell-image', preview: shellPreview, file: 'display-handheld-shell-user-6449ca2f55.webp' },
   ];
   let disposed = false;
 
@@ -26,7 +26,7 @@ export function mountHomeArtwork() {
         await loadImage(url);
         if (disposed) return;
         style.setProperty(asset.property, `url("${url}")`);
-        if (asset.file === 'handheld-shell-user.webp') {
+        if (asset.file === 'display-handheld-shell-user-6449ca2f55.webp') {
           shellImages.forEach(image => image.setAttribute('href', url));
         }
       }));

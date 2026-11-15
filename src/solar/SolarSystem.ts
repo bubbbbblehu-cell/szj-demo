@@ -105,7 +105,7 @@ export class SolarSystem {
   }
 
   private async load(): Promise<void> {
-    const files = [...SOLAR_BODIES.map(body => `solar/${body.file}`), 'optimized/portrait-open-ring-transparent.webp', 'optimized/flight-open-ring.webp'];
+    const files = [...SOLAR_BODIES.map(body => `solar/${body.file}`), 'optimized/display-portrait-open-ring-transparent-adfb62f334.webp', 'optimized/display-flight-open-ring-43469decd2.webp'];
     let completed=0;
     const report=()=>{completed++;if(!this.disposed)this.events.progress?.(completed,files.length+1);};
     const images = await Promise.all(files.map(file => loadImage(`${BASE}assets/${file}`).then(image=>{report();return image;})));

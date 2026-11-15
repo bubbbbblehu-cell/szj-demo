@@ -145,7 +145,7 @@ export class PortfolioExperience {
   private makeWelcome():void{
     this.welcome.className='pixel-dialog cv-dialog exploration-welcome';this.welcome.setAttribute('aria-labelledby','welcome-title');
     const header=dialogHeader(translateUI('欢迎来到我的创意星系'),'welcome-title','SONGZHIJIE SPACE',()=>this.finishWelcome());
-    const image=document.createElement('img');image.src='/assets/optimized/portrait-open-ring-transparent.webp';image.alt=translateUI('宇航狗导览员');
+    const image=document.createElement('img');image.src='/assets/optimized/display-portrait-open-ring-transparent-adfb62f334.webp';image.alt=translateUI('宇航狗导览员');
     const intro=document.createElement('p');intro.textContent=translateUI('我是宋志杰，专注游戏品牌视觉、KV 创意、交互体验与美术指导。');
     const tip=document.createElement('p');tip.className='welcome-guide';tip.textContent=translateUI('点星球打开作品；项目内上下阅读，左右切换项目。看完一颗星球的全部项目，即可获得探索印章。');
     const start=this.button(translateUI('开始探索 →'),()=>this.finishWelcome());start.dataset.gamepadConfirm='';this.welcome.append(header,image,intro,tip,start);document.body.append(this.welcome);
@@ -155,7 +155,7 @@ export class PortfolioExperience {
     this.worldReward.className='pixel-dialog world-completion';this.worldReward.setAttribute('aria-labelledby','world-completion-title');
     const stamp=document.createElement('div');stamp.className='world-completion-stamp';stamp.hidden=true;stamp.setAttribute('aria-hidden','true');
     const title=document.createElement('h2');title.id='world-completion-title';const count=document.createElement('p');count.className='world-completion-count';
-    const image=document.createElement('img');image.src='/assets/optimized/portrait-open-ring-transparent.webp';image.alt='';
+    const image=document.createElement('img');image.src='/assets/optimized/display-portrait-open-ring-transparent-adfb62f334.webp';image.alt='';
     const note=document.createElement('p');note.textContent=translateUI('本星球全部项目已阅 · 探索印章已收集');
     const back=this.button(translateUI('继续阅读 →'),()=>this.worldReward.close());back.dataset.gamepadConfirm='';const art=document.createElement('div');art.className='world-completion-art';art.setAttribute('aria-hidden','true');art.innerHTML='<svg class="reward-trophy" viewBox="0 0 80 88" fill="none"><path d="M22 10h36v24c0 15-8 23-18 23S22 49 22 34V10Z" fill="#f5c85e" stroke="#805a54" stroke-width="3"/><path d="M22 17H9v12c0 12 8 17 18 17M58 17h13v12c0 12-8 17-18 17" stroke="#a1776c" stroke-width="5"/><path d="M40 57v15M25 78h30" stroke="#805a54" stroke-width="5"/><path d="m40 22 4 8 9 1-6 7 1 9-8-4-8 4 1-9-6-7 9-1Z" fill="#fff4cf"/><path d="M28 15v20" stroke="#fff4cf" stroke-width="3"/></svg>';art.append(image);this.worldReward.append(stamp,title,art,count,note,back);document.body.append(this.worldReward);
     this.worldReward.addEventListener('close',()=>{const reader=document.querySelector<HTMLDialogElement>('.project-reader[open]');this.chatter.setPanel(!!reader);if(reader)reader.querySelector<HTMLElement>('.project-scroll')?.focus({preventScroll:true});else{this.maybeReward();document.querySelector<HTMLElement>('#game')?.focus({preventScroll:true});}});

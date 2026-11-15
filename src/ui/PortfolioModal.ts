@@ -16,6 +16,7 @@ export class PortfolioModal {
  private back:HTMLButtonElement;private prev:HTMLButtonElement;private next:HTMLButtonElement;private link=document.createElement('a');
  private returnFocus?:HTMLElement;private context?:ReaderContext;private entries:ReaderEntry[]=[];private caseIndex=0;
  private images:HTMLImageElement[]=[];private videos:HTMLVideoElement[]=[];private seenVideos=new Set<HTMLVideoElement>();private seen=new Set<HTMLImageElement>();private reported=false;
+ private pendingImages=new Map<HTMLImageElement,()=>void>();
  private touch?:{id:number;x:number;y:number};private revision=0;private observer?:IntersectionObserver;
  constructor(onClose:(returningToDirectory:boolean)=>void){
   this.dialog.className='portfolio-modal cv-dialog project-reader';this.dialog.setAttribute('aria-labelledby','project-title');
@@ -40,7 +41,12 @@ export class PortfolioModal {
   this.stage.addEventListener('pointerdown',event=>{if(event.pointerType==='touch'&&event.isPrimary)this.touch={id:event.pointerId,x:event.clientX,y:event.clientY};},{passive:true});
   this.stage.addEventListener('pointerup',event=>{if(!this.touch||this.touch.id!==event.pointerId)return;const dx=event.clientX-this.touch.x,dy=event.clientY-this.touch.y;this.touch=undefined;if(Math.abs(dx)>72&&Math.abs(dy)<40)this.changeCase(dx<0?1:-1);});
   this.stage.addEventListener('pointercancel',()=>{this.touch=undefined;});this.stage.addEventListener('scroll',()=>this.checkRead(),{passive:true});
-  this.dialog.addEventListener('close',()=>{this.revision++;this.observer?.disconnect();this.videos.forEach(video=>video.pause());this.touch=undefined;this.stage.replaceChildren();const directory=this.dialog.returnValue==='archive';onClose(directory);if(directory)this.context?.onDirectory();else this.returnFocus?.focus({preventScroll:true});});
+  this.dialog.addEventListener('close',()=>{this.revision++;this.cancelImageLoads();this.videos.forEach(video=>video.pause());this.touch=undefined;this.stage.replaceChildren();const directory=this.dialog.returnValue==='archive';onClose(directory);if(directory)this.context?.onDirectory();else this.returnFocus?.focus({preventScroll:true});});
+ }
+ private cancelImageLoads():void{
+  this.observer?.disconnect();
+  this.pendingImages.clear();
+  this.images.forEach(image=>image.removeAttribute('src'));
  }
  private button(text:string,action:()=>void):HTMLButtonElement{const button=document.createElement('button');button.type='button';button.textContent=text;button.addEventListener('click',action);return button;}
  private close(directory=false):void{this.videos.forEach(video=>video.pause());this.dialog.close(directory?'archive':'universe');}
@@ -50,7 +56,7 @@ export class PortfolioModal {
  }
  private changeCase(delta:number):void{const next=adjacentProject(this.caseIndex,delta,this.entries.length);if(next===this.caseIndex)return;this.caseIndex=next;this.renderCase();this.stage.focus({preventScroll:true});}
  private renderCase():void{
-  const revision=++this.revision,entry=this.entries[this.caseIndex];this.observer?.disconnect();this.videos.forEach(video=>video.pause());this.videos=[];this.seenVideos.clear();this.images=[];this.seen.clear();this.reported=false;
+  const revision=++this.revision,entry=this.entries[this.caseIndex];this.cancelImageLoads();this.videos.forEach(video=>video.pause());this.videos=[];this.seenVideos.clear();this.images=[];this.seen.clear();this.reported=false;
   this.back.textContent=this.context?.directoryLabel===translateUI('工作案例')?translateUI('返回工作案例'):translateUI('返回星系 · Esc');
   this.title.textContent=entry.item.title;this.category.textContent=entry.item.categorySuffix?`${entry.category} · ${entry.item.categorySuffix}`:entry.category;this.counter.textContent=`${this.caseIndex+1} / ${this.entries.length}`;
   this.prev.disabled=this.caseIndex===0;this.next.disabled=this.caseIndex===this.entries.length-1;this.next.toggleAttribute('data-gamepad-confirm',!this.next.disabled);
@@ -69,8 +75,13 @@ export class PortfolioModal {
   if(!this.next.disabled)end.append(this.button(translateUI('下个项目 →'),()=>this.changeCase(1)));this.stage.append(end);
   this.context?.onCaseChanged?.(entry);this.fitImages();this.updateLoading();this.updateProgress();
   if(typeof IntersectionObserver!=='undefined'){
-   this.observer=new IntersectionObserver(()=>this.checkRead(),{root:this.stage,threshold:[0,1]});[...this.images,...this.videos].forEach(media=>this.observer!.observe(media));
-  }
+   this.observer=new IntersectionObserver(entries=>{
+    if(revision!==this.revision)return;
+    entries.forEach(entry=>{if(entry.isIntersecting)this.pendingImages.get(entry.target as HTMLImageElement)?.();});
+    this.checkRead();
+   },{root:this.stage,rootMargin:'160px 0px',threshold:[0,1]});
+   [...this.images,...this.videos].forEach(media=>this.observer!.observe(media));
+  }else this.pendingImages.forEach(load=>load());
   requestAnimationFrame(()=>{if(revision===this.revision)this.checkRead();});
  }
  private fitImages():void{
@@ -91,9 +102,9 @@ export class PortfolioModal {
  }
  private updateLoading():void{
   const loaded=this.images.filter(image=>image.dataset.ready==='true').length,complete=loaded===this.images.length;
-  this.stage.setAttribute('aria-busy',String(!complete));
+  this.stage.setAttribute('aria-busy',String(this.images.some(image=>image.hasAttribute('src')&&!image.complete)));
   this.endNote.textContent=complete?translateUI('本项目已到底 · 左右切换下一个项目'):`${translateUI('正在加载清晰图片…')} ${loaded}/${this.images.length}`;
-  if(!this.reported)this.status.textContent=complete?translateUI('上下阅读项目 · 左右切换项目'):`${translateUI('正在加载清晰图片…')} ${loaded}/${this.images.length}`;
+  if(!this.reported)this.status.textContent=loaded>0?translateUI('上下阅读项目 · 左右切换项目'):`${translateUI('正在加载清晰图片…')} ${loaded}/${this.images.length}`;
   this.updateProgress();
  }
  private figure(page:ProjectImage,revision:number,index:number):HTMLElement{
@@ -101,13 +112,20 @@ export class PortfolioModal {
   const width=page.width??variant?.width??1440,height=page.height??variant?.height??810;
   figure.dataset.loadState='loading';link.className='project-media-frame project-image-link';link.dataset.aspect=String(width/height);link.style.aspectRatio=`${width} / ${height}`;link.style.width='100%';
   placeholder.className='project-image-placeholder';preview.className='project-image-thumbnail';label.className='project-image-loading';label.textContent=translateUI('正在加载清晰图片…');
-  const thumbnail=imageVariant(page.src,'thumbnail');preview.style.backgroundImage=`url("${thumbnail}")`;placeholder.append(preview,label);
-  image.alt=page.alt;image.decoding='async';image.loading=index<2?'eager':'lazy';image.fetchPriority=index===0?'high':'auto';image.width=width;image.height=height;
-  const retry=this.button(translateUI('图片加载失败 · 点击重试'),()=>{figure.dataset.loadState='loading';label.textContent=translateUI('正在加载清晰图片…');retry.hidden=true;image.src=page.src;void image.decode().then(ready).catch(()=>{});});retry.className='project-image-retry';retry.hidden=true;
+  placeholder.append(preview,label);
+  image.alt=page.alt;image.decoding='async';image.loading='eager';image.fetchPriority=index===0?'high':'low';image.width=width;image.height=height;
+  const previewUrl=imageVariant(page.src,'preview');
+  const retry=this.button(translateUI('图片加载失败 · 点击重试'),()=>{figure.dataset.loadState='loading';label.textContent=translateUI('正在加载清晰图片…');retry.hidden=true;image.removeAttribute('src');image.src=previewUrl;void image.decode().then(ready).catch(()=>{});});retry.className='project-image-retry';retry.hidden=true;
   const ready=()=>{if(revision!==this.revision||!image.complete||!image.naturalWidth||image.dataset.ready==='true')return;image.dataset.ready='true';figure.dataset.loadState='ready';placeholder.hidden=true;retry.hidden=true;this.fitImages();this.updateLoading();this.checkRead();};image.addEventListener('load',ready);
   image.addEventListener('error',()=>{if(revision!==this.revision)return;image.dataset.ready='false';figure.dataset.loadState='error';placeholder.hidden=false;label.textContent=translateUI('图片加载失败，可重试或打开原图。');retry.hidden=false;this.updateLoading();});
   // Preview loading never depends on an image's intrinsic size; originals remain opt-in.
-  image.src=imageVariant(page.src,'preview');void image.decode().then(ready).catch(()=>{});
+  const load=()=>{
+   this.pendingImages.delete(image);
+   preview.style.backgroundImage=`url("${imageVariant(page.src,'thumbnail')}")`;
+   image.src=previewUrl;this.stage.setAttribute('aria-busy','true');void image.decode().then(ready).catch(()=>{});
+  };
+  this.pendingImages.set(image,load);
+  if(index===0)load();
   link.href=page.src;link.target='_blank';link.rel='noopener noreferrer';link.setAttribute('aria-label',translateUI('查看清晰原图'));link.append(placeholder,image);figure.append(link,retry);this.images.push(image);return figure;
  }
  private movie(page:NonNullable<PortfolioCase['videos']>[number],revision:number):HTMLElement{
@@ -126,5 +144,5 @@ export class PortfolioModal {
   this.reported=true;this.status.textContent=translateUI('✓ 本项目已阅');
   this.context?.onCaseRead?.(this.entries[this.caseIndex]);this.updateProgress();
  }
- destroy():void{this.revision++;this.videos.forEach(video=>video.pause());this.resize.disconnect();this.observer?.disconnect();this.dialog.remove();}
+ destroy():void{this.revision++;this.cancelImageLoads();this.videos.forEach(video=>video.pause());this.resize.disconnect();this.dialog.remove();}
 }

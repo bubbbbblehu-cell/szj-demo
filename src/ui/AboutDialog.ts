@@ -19,7 +19,7 @@ export function mountAboutDialog(dialog: HTMLDialogElement): () => void {
       <section id="cv-personal" class="cv-page cv-personal" aria-label="个人资料" tabindex="-1">
         <div class="cv-introduction">
           <div class="cv-identity"><div><span class="cv-section-label">ABOUT ME</span>
-          <h3>宋志杰<span>SONG ZHIJIE</span></h3></div><img class="cv-portrait" src="${import.meta.env.BASE_URL}assets/optimized/portrait-open-ring-transparent.webp" width="1254" height="1254" alt="小狗证件照" /></div>
+          <h3>宋志杰<span>SONG ZHIJIE</span></h3></div><img class="cv-portrait" src="${import.meta.env.BASE_URL}assets/optimized/display-portrait-open-ring-transparent-adfb62f334.webp" width="1254" height="1254" alt="小狗证件照" /></div>
           <p class="cv-position">品牌内容创意 · 游戏视觉设计</p>
           <p class="cv-years"><strong>7</strong><span>年工作经验</span></p>
           <p class="cv-summary">专注游戏品宣、平面物料、KV创意与绘制、H5交互创意与设计、视频美术指导</p>
