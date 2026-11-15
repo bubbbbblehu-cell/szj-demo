@@ -51,19 +51,24 @@ export class SpaceAudio {
     this.active=true;this.preparing=!this.source;this.notify();
     try{
       if(!this.context){
-        this.context=new AudioContext();this.context.onstatechange=()=>this.notify();
+        this.context=new AudioContext({latencyHint:'playback'});this.context.onstatechange=()=>this.notify();
         this.music=this.context.createGain();this.music.gain.value=0;this.music.connect(this.context.destination);
         this.effects=this.context.createGain();this.effects.gain.value=this.effectOn?audioConfig.effectVolume:0;this.effects.connect(this.context.destination);
       }
       // Called directly from the play-button gesture, before awaiting composition.
       await this.context.resume();
       if(operation!==this.operation||this.disposed)return this.playing;
-      this.configure(this.volume,this.effectOn);
       if(!this.source){
-        this.building??=this.compose();const buffer=await this.building;
+        this.building??=this.compose(this.context.sampleRate);const buffer=await this.building;
         if(operation!==this.operation||this.disposed||!this.active)return this.playing;
-        const source=this.context.createBufferSource();source.buffer=buffer;source.loop=true;source.connect(this.music!);source.start();this.source=source;
+        const source=this.context.createBufferSource();source.buffer=buffer;source.loop=true;source.connect(this.music!);
+        // Begin the fade when playback starts, after offline rendering finishes.
+        const now=this.context.currentTime;
+        this.music!.gain.cancelScheduledValues(now);
+        this.music!.gain.setValueAtTime(0,now);
+        source.start(now);this.source=source;
       }
+      this.configure(this.volume,this.effectOn);
       this.preparing=false;this.notify();return this.playing;
     }catch{
       if(operation!==this.operation||this.disposed)return false;
@@ -71,8 +76,9 @@ export class SpaceAudio {
     }
   }
   effect(event:SoundEvent):void{if(!this.playing||!this.effectOn||!this.context||!this.effects||document.hidden)return;const now=this.context.currentTime;if(now-this.lastEffect<.07)return;this.lastEffect=now;const notes:Record<SoundEvent,number[]>={click:[440],dialogue:[660],discover:[523.25,659.25,783.99],complete:[523.25,659.25,783.99,1046.5]};notes[event].forEach((frequency,index)=>{const osc=this.context!.createOscillator(),gain=this.context!.createGain(),start=now+index*.11;osc.type='sine';osc.frequency.value=frequency;gain.gain.setValueAtTime(0,start);gain.gain.linearRampToValueAtTime(event==='click'?.10:.16,start+.012);gain.gain.exponentialRampToValueAtTime(.0001,start+.18);osc.connect(gain).connect(this.effects!);osc.start(start);osc.stop(start+.2);});}
-  private async compose():Promise<AudioBuffer>{
-    const duration=audioConfig.duration,rate=22050,total=duration+.5,bars=duration/6;
+  private async compose(rate:number):Promise<AudioBuffer>{
+    // Match the output device so Safari does not resample the looping source.
+    const duration=audioConfig.duration,total=duration+.5,bars=duration/6;
     const ctx=new OfflineAudioContext(2,rate*total,rate),master=ctx.createGain();master.gain.value=.7;master.connect(ctx.destination);
     const chords=[[130.813,164.814,195.998,246.942],[110,130.813,164.814,195.998],[87.307,110,130.813,164.814],[97.999,123.471,146.832,195.998]];
     for(let bar=-1;bar<=bars;bar++){
@@ -90,7 +96,10 @@ export class SpaceAudio {
     const rendered=await ctx.startRendering(),buffer=ctx.createBuffer(2,rate*duration,rate),overlap=Math.floor(rate*.5);
     for(let channel=0;channel<2;channel++){
       const source=rendered.getChannelData(channel),data=buffer.getChannelData(channel);data.set(source.subarray(0,data.length));
-      for(let i=0;i<overlap;i++){const t=i/overlap;data[i]=source[data.length+i]*(1-t)+source[i]*t;}
+      for(let i=0;i<overlap;i++){
+        const blend=(1-Math.cos(Math.PI*i/(overlap-1)))/2;
+        data[i]=source[data.length+i]*(1-blend)+source[i]*blend;
+      }
     }
     return buffer;
   }
