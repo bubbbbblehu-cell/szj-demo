@@ -3,7 +3,16 @@ import type { PortfolioCase } from '../game/planets';
 import { imageVariants } from './imageVariants';
 
 export function imageVariant(src:string,kind:'thumbnail'|'preview'):string {
-  return mediaAsset(imageVariants[mediaKey(src)]?.[kind] ?? src);
+  const variant=imageVariants[mediaKey(src)];
+  if(kind==='thumbnail'&&variant?.localThumbnail)return import.meta.env.BASE_URL+variant.localThumbnail;
+  return mediaAsset(variant?.[kind] ?? src);
+}
+export function previewSources(src:string):{src:string;srcset?:string}{
+  const variant=imageVariants[mediaKey(src)],preview=imageVariant(src,'preview');
+  if(!variant?.compactPreview||!variant.compactWidth||!variant.previewWidth)return {src:preview};
+  const compact=import.meta.env.BASE_URL+variant.compactPreview;
+  if(variant.compactWidth===variant.previewWidth)return {src:compact};
+  return {src:preview,srcset:`${compact} ${variant.compactWidth}w, ${preview} ${variant.previewWidth}w`};
 }
 export function caseCover(item:PortfolioCase):string|undefined {
   const images=[...(item.image?[{src:item.image,...item.imageSize}]:[]),...(item.gallery??[])];

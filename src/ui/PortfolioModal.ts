@@ -1,7 +1,7 @@
 import { mediaKey } from '../media';
 import { t as translateUI } from '../i18n';
 import type { PortfolioCase, PortfolioPlanet } from '../game/planets';
-import { imageVariant } from './caseImages';
+import { imageVariant, previewSources } from './caseImages';
 import { imageVariants } from './imageVariants';
 import type { ReaderContext, ReaderEntry } from './caseNavigation';
 import { projectMediaGroups, adjacentProject, type ProjectImage } from './projectLayout';
@@ -46,7 +46,7 @@ export class PortfolioModal {
  private cancelImageLoads():void{
   this.observer?.disconnect();
   this.pendingImages.clear();
-  this.images.forEach(image=>image.removeAttribute('src'));
+  this.images.forEach(image=>{image.removeAttribute('srcset');image.removeAttribute('src');});
  }
  private button(text:string,action:()=>void):HTMLButtonElement{const button=document.createElement('button');button.type='button';button.textContent=text;button.addEventListener('click',action);return button;}
  private close(directory=false):void{this.videos.forEach(video=>video.pause());this.dialog.close(directory?'archive':'universe');}
@@ -73,7 +73,7 @@ export class PortfolioModal {
   if(entry.item.videoPlacement!=='before-images')for(const video of entry.item.videos??[])this.stage.append(this.movie(video,revision));
   const end=document.createElement('div');end.className='project-end';end.append(this.endNote);
   if(!this.next.disabled)end.append(this.button(translateUI('下个项目 →'),()=>this.changeCase(1)));this.stage.append(end);
-  this.context?.onCaseChanged?.(entry);this.fitImages();this.updateLoading();this.updateProgress();
+  this.context?.onCaseChanged?.(entry);this.fitImages();this.pendingImages.get(this.images[0])?.();this.updateLoading();this.updateProgress();
   if(typeof IntersectionObserver!=='undefined'){
    this.observer=new IntersectionObserver(entries=>{
     if(revision!==this.revision)return;
@@ -93,7 +93,12 @@ export class PortfolioModal {
    const chromeWidth=this.sidebar.getBoundingClientRect().width+parseFloat(body.columnGap)+parseFloat(panel.paddingLeft)+parseFloat(panel.paddingRight)+parseFloat(dialog.borderLeftWidth)+parseFloat(dialog.borderRightWidth);
    this.dialog.style.setProperty('--reader-dialog-width',`${Math.ceil(mediaWidth+chromeWidth)}px`);
   }else this.dialog.style.removeProperty('--reader-dialog-width');
-  this.stage.querySelectorAll<HTMLElement>('.project-media-frame').forEach(frame=>{const ratio=Number(frame.dataset.aspect)||1,width=Math.min(frame.parentElement!.clientWidth,height*ratio);frame.style.width=`${Math.max(1,width)}px`;frame.style.height=`${Math.max(1,width/ratio)}px`;});
+  this.stage.querySelectorAll<HTMLElement>('.project-media-frame').forEach(frame=>{
+   const ratio=Number(frame.dataset.aspect)||1,width=Math.min(frame.parentElement!.clientWidth,height*ratio);
+   frame.style.width=`${Math.max(1,width)}px`;frame.style.height=`${Math.max(1,width/ratio)}px`;
+   const image=frame.querySelector<HTMLImageElement>('img[srcset]');
+   if(image)image.sizes=`${Math.ceil(Math.max(1,width))}px`;
+  });
  }
  private updateProgress():void{
   const entry=this.entries[this.caseIndex],state=this.context?.progress?.(entry);this.progress.hidden=!state;
@@ -114,18 +119,19 @@ export class PortfolioModal {
   placeholder.className='project-image-placeholder';preview.className='project-image-thumbnail';label.className='project-image-loading';label.textContent=translateUI('正在加载清晰图片…');
   placeholder.append(preview,label);
   image.alt=page.alt;image.decoding='async';image.loading='eager';image.fetchPriority=index===0?'high':'low';image.width=width;image.height=height;
-  const previewUrl=imageVariant(page.src,'preview');
-  const retry=this.button(translateUI('图片加载失败 · 点击重试'),()=>{figure.dataset.loadState='loading';label.textContent=translateUI('正在加载清晰图片…');retry.hidden=true;image.removeAttribute('src');image.src=previewUrl;void image.decode().then(ready).catch(()=>{});});retry.className='project-image-retry';retry.hidden=true;
+  const sources=previewSources(page.src);
+  const retry=this.button(translateUI('图片加载失败 · 点击重试'),()=>{figure.dataset.loadState='loading';label.textContent=translateUI('正在加载清晰图片…');retry.hidden=true;image.removeAttribute('srcset');image.removeAttribute('src');load();});retry.className='project-image-retry';retry.hidden=true;
   const ready=()=>{if(revision!==this.revision||!image.complete||!image.naturalWidth||image.dataset.ready==='true')return;image.dataset.ready='true';figure.dataset.loadState='ready';placeholder.hidden=true;retry.hidden=true;this.fitImages();this.updateLoading();this.checkRead();};image.addEventListener('load',ready);
   image.addEventListener('error',()=>{if(revision!==this.revision)return;image.dataset.ready='false';figure.dataset.loadState='error';placeholder.hidden=false;label.textContent=translateUI('图片加载失败，可重试或打开原图。');retry.hidden=false;this.updateLoading();});
   // Preview loading never depends on an image's intrinsic size; originals remain opt-in.
   const load=()=>{
    this.pendingImages.delete(image);
    preview.style.backgroundImage=`url("${imageVariant(page.src,'thumbnail')}")`;
-   image.src=previewUrl;this.stage.setAttribute('aria-busy','true');void image.decode().then(ready).catch(()=>{});
+   image.sizes=`${Math.ceil(Math.max(1,link.getBoundingClientRect().width))}px`;
+   if(sources.srcset)image.srcset=sources.srcset;
+   image.src=sources.src;this.stage.setAttribute('aria-busy','true');void image.decode().then(ready).catch(()=>{});
   };
   this.pendingImages.set(image,load);
-  if(index===0)load();
   link.href=page.src;link.target='_blank';link.rel='noopener noreferrer';link.setAttribute('aria-label',translateUI('查看清晰原图'));link.append(placeholder,image);figure.append(link,retry);this.images.push(image);return figure;
  }
  private movie(page:NonNullable<PortfolioCase['videos']>[number],revision:number):HTMLElement{

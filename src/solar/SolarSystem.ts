@@ -144,6 +144,22 @@ export class SolarSystem {
     // Download one atlas at a time after the usable scene has been revealed.
     for (const body of this.bodies) {
       if (this.disposed) return;
+      // Give the welcome screen and project reader priority over optional motion.
+      if (document.querySelector('dialog[open]')) {
+        await new Promise<void>(resolve => {
+          const finish = () => {
+            document.removeEventListener('close', closed, true);
+            this.abort.signal.removeEventListener('abort', finish);
+            resolve();
+          };
+          const closed = () => queueMicrotask(() => {
+            if (!document.querySelector('dialog[open]')) finish();
+          });
+          document.addEventListener('close', closed, { capture: true, signal: this.abort.signal });
+          this.abort.signal.addEventListener('abort', finish, { once: true });
+        });
+      }
+      if (this.disposed) return;
       try {
         const image = await loadImage(`${BASE}assets/solar/${body.spec.strip}`);
         if (this.disposed) return;
